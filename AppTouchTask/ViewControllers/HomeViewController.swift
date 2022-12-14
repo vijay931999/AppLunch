@@ -11,7 +11,14 @@ class HomeViewController: UIViewController {
     @IBOutlet var tableV: UITableView!
     
     var company: Company?
+    var filterLaunches: [Launches]?
     var launches: [Launches]?
+    var filterBy: Filter?
+    var sort: SortOrder = .asc
+    var selectedFromYear = 0
+    var selectedToYear = 0
+    var selectedFromMonth = 0
+    var selectedToMonth = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +29,56 @@ class HomeViewController: UIViewController {
         super.viewWillAppear(animated)
         fetchCompanyDetails()
         fetchLaunchesDetails()
+    }
+    
+    @IBAction func actionOnFilter() {
+        let filterVc = FilterVC.instantiateFromStoryboard()
+        filterVc.filterBy = { filterType, sortOrder in
+            self.filterBy = filterType
+            self.sort = sortOrder
+            self.filter()
+        }
+        filterVc.filterYears = { fromYear, fromMonth, toYear, toMonth in
+            self.selectedFromYear = fromYear
+            self.selectedFromMonth = fromMonth
+            self.selectedToYear = toYear ?? 0
+            self.selectedToMonth = toMonth ?? 0
+            self.filter()
+        }
+        filterVc.clearFilter = {
+            self.filterBy = nil
+            self.filter()
+        }
+        filterVc.selectedFilter = filterBy
+        filterVc.selectedSort = sort
+        filterVc.selectedFromYear = selectedFromYear
+        filterVc.selectedFromMonth = selectedFromMonth
+        filterVc.selectedToYear = selectedToYear
+        filterVc.selectedToMonth = selectedToMonth
+        
+        filterVc.modalPresentationStyle = .overCurrentContext
+        present(filterVc, animated: true)
+    }
+    
+    func filter()  {
+        switch filterBy {
+        case .years:
+            if selectedToYear > 0 {
+                filterLaunches = launches?.filter({ $0.date_local.toDate.isBetween("\(selectedFromMonth)/\(selectedFromYear)".toDateMonthYear.startOfMonth(), and: "\(selectedToMonth)/\(selectedToYear)".toDateMonthYear.endOfMonth())})
+            } else {
+                filterLaunches = launches?.filter({ $0.date_local.toDate.isBetween("\(selectedFromMonth)/\(selectedFromYear)".toDateMonthYear.startOfYear, and: "\(selectedFromMonth)/\(selectedFromYear)".toDateMonthYear.endOfYear)})
+            }
+            filterLaunches = filterLaunches?.sorted(by: { $0.date_local.toDate.compare($1.date_local.toDate) == (sort == .asc ? .orderedAscending : .orderedDescending) })
+        case .successful:
+            filterLaunches = launches?.filter({ $0.success })
+            filterLaunches = filterLaunches?.sorted(by: { $0.date_local.toDate.compare($1.date_local.toDate) == (sort == .asc ? .orderedAscending : .orderedDescending) })
+        case .fialures:
+            filterLaunches = launches?.filter({ !$0.success })
+            filterLaunches = filterLaunches?.sorted(by: { $0.date_local.toDate.compare($1.date_local.toDate) == (sort == .asc ? .orderedAscending : .orderedDescending) })
+        default:
+            filterLaunches = launches
+        }
+        tableV.reloadData()
     }
     
     /// This function is used for register tableV Cells in TableView.
@@ -46,6 +103,7 @@ class HomeViewController: UIViewController {
             guard let self = self else { return }
             Utils.hideHUD(view: self.view)
             self.launches = launchesData
+            self.filterLaunches = launchesData
             self.tableV.reloadData()
         }
     }
@@ -53,7 +111,7 @@ class HomeViewController: UIViewController {
 
 extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return section == 0 ? 1 : (launches?.count ?? 0)
+        return section == 0 ? 1 : (filterLaunches?.count ?? 0)
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -75,7 +133,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: LaunchesTVC.reuseIdentifier, for: indexPath) as! LaunchesTVC
-            cell.config(launch: launches?[indexPath.row])
+            cell.config(launch: filterLaunches?[indexPath.row])
             return cell
         }
     }
@@ -92,19 +150,19 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         if indexPath.section == 0 { return }
         let alert = UIAlertController(title: nil, message: "Choose a option", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Articles", style: .default, handler: { _ in
-            let urlString = self.launches?[indexPath.row].links?.article ?? ""
+            let urlString = self.filterLaunches?[indexPath.row].links?.article ?? ""
             if let url = URL(string: urlString), UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url)
             }
         }))
         alert.addAction(UIAlertAction(title: "Wikipedia", style: .default, handler: { _ in
-            let urlString = self.launches?[indexPath.row].links?.wikipedia ?? ""
+            let urlString = self.filterLaunches?[indexPath.row].links?.wikipedia ?? ""
             if let url = URL(string: urlString), UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url)
             }
         }))
         alert.addAction(UIAlertAction(title: "Video", style: .default, handler: { _ in
-            let urlString = "htttps://www.youtube.com/watch?v=\(self.launches?[indexPath.row].links?.youtube_id ?? "")"
+            let urlString = "htttps://www.youtube.com/watch?v=\(self.filterLaunches?[indexPath.row].links?.youtube_id ?? "")"
             if let url = URL(string: urlString), UIApplication.shared.canOpenURL(url) {
                 UIApplication.shared.open(url)
             }

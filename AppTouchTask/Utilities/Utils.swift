@@ -41,8 +41,6 @@ class Utils: NSObject {
         } else {
             return nil
         }
-        
-        return nil
     }
     
     class func numberOfDaysBetween(_ from: Date, and to: Date) -> Int {

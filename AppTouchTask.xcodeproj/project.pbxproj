@@ -20,6 +20,10 @@
 		83437CEB29460DAE00062FDB /* AppTouchTaskUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83437CEA29460DAE00062FDB /* AppTouchTaskUITests.swift */; };
 		83437CED29460DAE00062FDB /* AppTouchTaskUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83437CEC29460DAE00062FDB /* AppTouchTaskUITestsLaunchTests.swift */; };
 		83437CFC2946173C00062FDB /* RestAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83437CFB2946173C00062FDB /* RestAPI.swift */; };
+		836A096629495D5400A5E255 /* FilterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836A096529495D5400A5E255 /* FilterVC.swift */; };
+		836A096829495E5B00A5E255 /* Enumeration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836A096729495E5B00A5E255 /* Enumeration.swift */; };
+		836A096C294960FA00A5E255 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836A096B294960FA00A5E255 /* Extension.swift */; };
+		836A096F294970D000A5E255 /* MonthYearWheelPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 836A096E294970D000A5E255 /* MonthYearWheelPicker */; };
 		836B59F829461D3600129B0F /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 836B59F729461D3600129B0F /* SDWebImage */; };
 		836B59FA29461D3600129B0F /* SDWebImageMapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 836B59F929461D3600129B0F /* SDWebImageMapKit */; };
 		836B59FE294622CC00129B0F /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = 836B59FD294622CC00129B0F /* Company.swift */; };
@@ -69,6 +73,9 @@
 		83437CEA29460DAE00062FDB /* AppTouchTaskUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTouchTaskUITests.swift; sourceTree = "<group>"; };
 		83437CEC29460DAE00062FDB /* AppTouchTaskUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTouchTaskUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		83437CFB2946173C00062FDB /* RestAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestAPI.swift; sourceTree = "<group>"; };
+		836A096529495D5400A5E255 /* FilterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterVC.swift; sourceTree = "<group>"; };
+		836A096729495E5B00A5E255 /* Enumeration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enumeration.swift; sourceTree = "<group>"; };
+		836A096B294960FA00A5E255 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		836B59FD294622CC00129B0F /* Company.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
 		836B5A002947990400129B0F /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		836B5A092948333B00129B0F /* CompanyTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyTVC.swift; sourceTree = "<group>"; };
@@ -88,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				836A096F294970D000A5E255 /* MonthYearWheelPicker in Frameworks */,
 				836B5A172948413700129B0F /* Alamofire in Frameworks */,
 				836B59F829461D3600129B0F /* SDWebImage in Frameworks */,
 				5A346DE104B9C4670D5797B1 /* Pods_AppTouchTask.framework in Frameworks */,
@@ -163,16 +171,14 @@
 		83437CC829460DAC00062FDB /* AppTouchTask */ = {
 			isa = PBXGroup;
 			children = (
+				83437CF9294612B500062FDB /* ViewControllers */,
+				836A096A29495F6C00A5E255 /* Storyboard */,
+				836A096929495F4B00A5E255 /* Helpers */,
 				836B5A052948323900129B0F /* Xib */,
 				836B59FF2947985000129B0F /* Utilities */,
 				836B59FC294622AB00129B0F /* Models */,
 				83437CFA2946171600062FDB /* Managers */,
-				83437CF9294612B500062FDB /* ViewControllers */,
-				83437CC929460DAC00062FDB /* AppDelegate.swift */,
-				83437CCB29460DAC00062FDB /* SceneDelegate.swift */,
-				83437CCF29460DAC00062FDB /* Main.storyboard */,
 				83437CD229460DAE00062FDB /* Assets.xcassets */,
-				83437CD429460DAE00062FDB /* LaunchScreen.storyboard */,
 				83437CD729460DAE00062FDB /* Info.plist */,
 			);
 			path = AppTouchTask;
@@ -199,6 +205,7 @@
 			isa = PBXGroup;
 			children = (
 				83437CCD29460DAC00062FDB /* HomeViewController.swift */,
+				836A096529495D5400A5E255 /* FilterVC.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -209,6 +216,26 @@
 				83437CFB2946173C00062FDB /* RestAPI.swift */,
 			);
 			path = Managers;
+			sourceTree = "<group>";
+		};
+		836A096929495F4B00A5E255 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				83437CC929460DAC00062FDB /* AppDelegate.swift */,
+				836A096729495E5B00A5E255 /* Enumeration.swift */,
+				83437CCB29460DAC00062FDB /* SceneDelegate.swift */,
+				836A096B294960FA00A5E255 /* Extension.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		836A096A29495F6C00A5E255 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				83437CCF29460DAC00062FDB /* Main.storyboard */,
+				83437CD429460DAE00062FDB /* LaunchScreen.storyboard */,
+			);
+			path = Storyboard;
 			sourceTree = "<group>";
 		};
 		836B59FC294622AB00129B0F /* Models */ = {
@@ -278,6 +305,7 @@
 				836B59F929461D3600129B0F /* SDWebImageMapKit */,
 				836B5A0329479B2200129B0F /* MBProgressHUD */,
 				836B5A162948413700129B0F /* Alamofire */,
+				836A096E294970D000A5E255 /* MonthYearWheelPicker */,
 			);
 			productName = AppTouchTask;
 			productReference = 83437CC629460DAC00062FDB /* AppTouchTask.app */;
@@ -358,6 +386,7 @@
 				836B59F629461D3600129B0F /* XCRemoteSwiftPackageReference "SDWebImage" */,
 				836B5A0229479B2200129B0F /* XCRemoteSwiftPackageReference "MBProgressHUD" */,
 				836B5A152948413700129B0F /* XCRemoteSwiftPackageReference "Alamofire" */,
+				836A096D294970D000A5E255 /* XCRemoteSwiftPackageReference "MonthYearWheelPicker" */,
 			);
 			productRefGroup = 83437CC729460DAC00062FDB /* Products */;
 			projectDirPath = "";
@@ -507,13 +536,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				836A096629495D5400A5E255 /* FilterVC.swift in Sources */,
 				83437CCE29460DAC00062FDB /* HomeViewController.swift in Sources */,
 				836B5A1A2948521A00129B0F /* Launches.swift in Sources */,
+				836A096C294960FA00A5E255 /* Extension.swift in Sources */,
 				83437CFC2946173C00062FDB /* RestAPI.swift in Sources */,
 				836B59FE294622CC00129B0F /* Company.swift in Sources */,
 				836B5A0B2948333B00129B0F /* CompanyTVC.swift in Sources */,
 				836B5A102948336000129B0F /* LaunchesTVC.swift in Sources */,
 				83437CCA29460DAC00062FDB /* AppDelegate.swift in Sources */,
+				836A096829495E5B00A5E255 /* Enumeration.swift in Sources */,
 				83437CCC29460DAC00062FDB /* SceneDelegate.swift in Sources */,
 				836B5A012947990400129B0F /* Utils.swift in Sources */,
 			);
@@ -865,6 +897,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		836A096D294970D000A5E255 /* XCRemoteSwiftPackageReference "MonthYearWheelPicker" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/bendodson/MonthYearWheelPicker.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		836B59F629461D3600129B0F /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
@@ -892,6 +932,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		836A096E294970D000A5E255 /* MonthYearWheelPicker */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 836A096D294970D000A5E255 /* XCRemoteSwiftPackageReference "MonthYearWheelPicker" */;
+			productName = MonthYearWheelPicker;
+		};
 		836B59F729461D3600129B0F /* SDWebImage */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 836B59F629461D3600129B0F /* XCRemoteSwiftPackageReference "SDWebImage" */;

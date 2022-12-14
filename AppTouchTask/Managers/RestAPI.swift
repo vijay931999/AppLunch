@@ -75,12 +75,4 @@ class RestAPI {
     }
 }
 
-extension Date {
-    func toString(dateFormat: String, timeZone: TimeZone = .current) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = dateFormat
-        dateFormatter.timeZone = timeZone
-        return dateFormatter.string(from: self)
-    }
-}
 
